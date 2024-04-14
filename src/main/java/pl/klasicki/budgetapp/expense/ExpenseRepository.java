@@ -25,7 +25,7 @@ public class ExpenseRepository {
     public Optional<UUID> insertExpense(Expense expense) {
 
         var result = context.insertInto(EXPENSE, EXPENSE.ID, EXPENSE.AMOUNT ,EXPENSE.DATE, EXPENSE.CATEGORY)
-          .values(expense.getId(), expense.getAmount(), LocalDateTime.now(), expense.getCategory())
+          .values(UUID.randomUUID(), expense.getAmount(), LocalDateTime.now(), expense.getCategory())
           .returning(EXPENSE.ID)
             .fetchOne();
 

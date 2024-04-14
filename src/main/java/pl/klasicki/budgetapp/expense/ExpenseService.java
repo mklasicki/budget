@@ -15,9 +15,10 @@ public class ExpenseService {
     ExpenseRepository expenseRepository;
 
     UUID insertExpense(Expense expense) {
-        log.info("Inserted new expense with id " + expense.getId());
-        return expenseRepository.insertExpense(expense)
+        var result = expenseRepository.insertExpense(expense)
             .orElseThrow(() -> new IllegalArgumentException("Error while saving expense with id " + expense.getId()));
+        log.info("Inserted new expense with id " + result);
+        return result;
     }
 
     public List<ExpenseDto> getExpenses() {
