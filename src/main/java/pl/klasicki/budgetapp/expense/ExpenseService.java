@@ -16,7 +16,7 @@ public class ExpenseService {
 
     UUID insertExpense(Expense expense) {
         var result = expenseRepository.insertExpense(expense)
-            .orElseThrow(() -> new IllegalArgumentException("Error while saving expense with id " + expense.getId()));
+            .orElseThrow(() -> new IllegalArgumentException("Error while saving expense"));
         log.info("Inserted new expense with id " + result);
         return result;
     }
