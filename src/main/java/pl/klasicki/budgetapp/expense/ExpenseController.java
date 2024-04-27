@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pl.klasicki.budgetapp.ControllerCode;
 
 @RestController
 @RequestMapping("/expense")
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ExpenseController {
     ExpenseService expenseService;
 
+    @ControllerCode(code = "insert expense")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,
                  consumes = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<UUID> insertExpense(@RequestBody Expense expense) {
@@ -30,5 +33,11 @@ public class ExpenseController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<ExpenseDto>> getAllExpenses() {
         return ResponseEntity.ok(expenseService.getExpenses());
+    }
+
+    @ControllerCode(code = "find by id")
+    @GetMapping(value = "id", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<ExpenseDto> findById(@RequestParam UUID id, @RequestParam String type, @RequestParam String element) {
+        return ResponseEntity.ok(expenseService.findById(id));
     }
 }

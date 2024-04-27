@@ -26,4 +26,8 @@ public class ExpenseService {
         log.info("Found " + result.size() + " expenses");
         return result;
     }
+
+    public ExpenseDto findById(UUID id) {
+        return expenseRepository.findById(id);
+    }
 }

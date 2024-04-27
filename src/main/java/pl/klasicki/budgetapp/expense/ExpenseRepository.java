@@ -38,6 +38,12 @@ public class ExpenseRepository {
             .fetch().map(this::toExpenseDto);
     }
 
+    public ExpenseDto findById(UUID id) {
+        return context.select(EXPENSE.asterisk()).from(EXPENSE)
+            .where(String.valueOf(EXPENSE.ID.equals(id)))
+            .fetchOneInto(ExpenseDto.class);
+    }
+
     private ExpenseDto toExpenseDto(Record result) {
         return ExpenseDto.builder()
             .id(result.get(EXPENSE.ID).toString())
