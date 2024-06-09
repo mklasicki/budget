@@ -2,6 +2,7 @@ package pl.klasicki.budgetapp;
 
 
 
+
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +10,6 @@ import java.util.Map;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.asm.Handle;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -52,4 +52,5 @@ public class CustomInterceptor implements HandlerInterceptor {
         }
         return map;
     }
+
 }
