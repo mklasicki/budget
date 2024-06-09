@@ -1,4 +1,4 @@
-package pl.klasicki.budgetapp;
+package pl.klasicki.budgetapp.interceptors;
 
 
 

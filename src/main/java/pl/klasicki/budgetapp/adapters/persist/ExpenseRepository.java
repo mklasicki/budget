@@ -1,4 +1,4 @@
-package pl.klasicki.budgetapp.expense;
+package pl.klasicki.budgetapp.adapters.persist;
 
 import static pl.klasicki.jooq.Tables.*;
 
@@ -13,6 +13,8 @@ import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import pl.klasicki.budgetapp.expense.Expense;
+import pl.klasicki.budgetapp.expense.ExpenseRequest;
 
 
 @Repository
@@ -22,14 +24,14 @@ public class ExpenseRepository {
     DSLContext context;
 
     @Transactional
-    public Optional<UUID> insertExpense(Expense expense) {
+    public UUID save(Expense expense) {
 
         var result = context.insertInto(EXPENSE, EXPENSE.ID, EXPENSE.AMOUNT ,EXPENSE.DATE, EXPENSE.CATEGORY)
           .values(UUID.randomUUID(), expense.getAmount(), LocalDateTime.now(), expense.getCategory())
           .returning(EXPENSE.ID)
             .fetchOne();
 
-        return Optional.of(result.getValue(EXPENSE.ID));
+        return result.getValue(EXPENSE.ID);
     }
 
     public List<ExpenseDto> getAllExpenses() {

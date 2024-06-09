@@ -1,4 +1,4 @@
-package pl.klasicki.budgetapp.expense;
+package pl.klasicki.budgetapp.adapters.rest;
 
 import java.util.List;
 import java.util.UUID;
@@ -9,35 +9,28 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import pl.klasicki.budgetapp.ControllerCode;
+import pl.klasicki.budgetapp.adapters.persist.ExpenseDto;
+import pl.klasicki.budgetapp.expense.ExpenseServiceImpl;
 
 @RestController
-@RequestMapping("/expense")
+@RequestMapping("api/expense")
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class ExpenseController {
-    ExpenseService expenseService;
+public class ExpenseSearchController {
 
-    @ControllerCode(code = "insert expense")
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,
-                 consumes = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<UUID> insertExpense(@RequestBody Expense expense) {
-        return ResponseEntity.ok(expenseService.insertExpense(expense));
-    }
+    ExpenseServiceImpl expenseService;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<ExpenseDto>> getAllExpenses() {
         return ResponseEntity.ok(expenseService.getExpenses());
     }
 
-    @ControllerCode(code = "find by id")
+//    @ControllerCode(code = "find by id")
     @GetMapping(value = "id", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<ExpenseDto> findById(@RequestParam UUID id, @RequestParam String type, @RequestParam String element) {
-        return ResponseEntity.ok(expenseService.findById(id));
+        return ResponseEntity.ok(expenseService.getExpenseById(id));
     }
 }

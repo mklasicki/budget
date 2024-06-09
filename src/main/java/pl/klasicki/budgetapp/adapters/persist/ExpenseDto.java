@@ -1,4 +1,4 @@
-package pl.klasicki.budgetapp.expense;
+package pl.klasicki.budgetapp.adapters.persist;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
